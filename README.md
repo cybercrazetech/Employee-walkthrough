@@ -43,8 +43,9 @@ docker run -d -p 137-139:137-139 -p 445:445 -p 6699:6699 -v /home/cybercraze/can
 
 https://drive.google.com/file/d/1b0Pbc8xdLGaVjGe8nNJqP2MityPsKfJD/view?usp=sharing
 
-for any errors resulted from using the exploits, refer to the Writeup section to fix
-players are expected to search and fix the error themselves
+for any errors resulted for using the exploits, refer to the Writeup section to fix
+
+*players are expected to search and fix the error themselves*
 
 ## Writeup
 
