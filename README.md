@@ -134,7 +134,7 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
           Please see https://github.blog/2021-09-01-improving-git-protocol-security-github/ for more information.
         ERROR: Command errored out with exit status 128: git clone -q git://github.com/opsxcq/impacket.git /tmp/pip-req-build-5GQWeh Check the logs for full command output.
         
-error1: directly git cloning impacket module using pip fail
+### error1: directly git cloning impacket module using pip fail
 
 fix1: manually install impacket from http://github.com/opsxcq/impacket.git
 
