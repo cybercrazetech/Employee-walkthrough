@@ -17,15 +17,18 @@ Passwords:
 ### Key Processes
 
 Services: SSH, HTTP, SMB
+
 HTTP:
+
 domain: designer.htb
+
 subdomain: underdevelopment.designer.htb
 
 SMB version: 4.5.9 --> vulnerable to CVE-2017-7494
 
 ### Docker
 
-docker run -d -p 137-139:137-139 -p 445:445 -p 6699:6699 -v /home/cybercraze/candidates:/candidates -v /root/backups:/var/www --restart=always --name=samba vulnerables/cve-2017-7494
+        docker run -d -p 137-139:137-139 -p 445:445 -p 6699:6699 -v /home/cybercraze/candidates:/candidates -v /root/backups:/var/www --restart=always --name=samba vulnerables/cve-2017-7494
 
 *hosting vulnerable samba on docker to prevent direct access as root
 
