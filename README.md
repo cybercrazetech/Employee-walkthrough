@@ -137,6 +137,7 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
 
 *refer to: https://github.com/opsxcq/exploit-CVE-2017-7494
 
+        $ git clone https://github.com/opsxcq/exploit-CVE-2017-7494.git
         $ cd exploit-CVE-2017-7494/
         $ sudo python2.7 -m pip install -r requirements.txt
         DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality.
@@ -152,6 +153,7 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
 
 fix1: manually install impacket from http://github.com/opsxcq/impacket.git
 
+        $ git clone http://github.com/opsxcq/impacket.git
         $ cd impacket/
         $ sudo python2.7 setup.py install
         
