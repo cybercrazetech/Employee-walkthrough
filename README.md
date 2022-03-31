@@ -51,6 +51,7 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
 ## Writeup
 
 1. Nmap
+
         $ nmap -sCV 10.10.154.21                                                                         
         Starting Nmap 7.92 ( https://nmap.org ) at 2022-03-31 17:16 +08                                                                    
         Nmap scan report for designer.htb (10.10.154.21)                                                             
@@ -68,7 +69,6 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
         139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)                                                
         445/tcp open  netbios-ssn Samba smbd 4.5.9 (workgroup: WORKGROUP)                                                    
         Service Info: Host: HACKEDSAMBA; OS: Linux; CPE: cpe:/o:linux:linux_kernel                                           
-
         Host script results:                                      
         | smb-security-mode:                                      
         |   account_used: <blank>                                 
