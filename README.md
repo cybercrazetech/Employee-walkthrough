@@ -45,8 +45,8 @@ https://drive.google.com/file/d/1b0Pbc8xdLGaVjGe8nNJqP2MityPsKfJD/view?usp=shari
 
 for any errors resulted for using the exploits, refer to the Writeup section to fix
 
-#### *players are expected to search and fix the error themselves*
+#### *players are expected to search and fix the errors themselves*
 
 ## Writeup
 
-[]
+<img src=""/>
