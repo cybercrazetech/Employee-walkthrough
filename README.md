@@ -134,7 +134,7 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
           Please see https://github.blog/2021-09-01-improving-git-protocol-security-github/ for more information.
         ERROR: Command errored out with exit status 128: git clone -q git://github.com/opsxcq/impacket.git /tmp/pip-req-build-5GQWeh Check the logs for full command output.
         
-### error1: directly git cloning impacket module using pip fail
+#### error1: directly git cloning impacket module using pip fail
 
 fix1: manually install impacket from http://github.com/opsxcq/impacket.git
 
@@ -147,27 +147,27 @@ change the variables while running the exploit such as the share name, username,
         $ sudo python2.7 exploit.py -t designer.htb -e libbindshell-samba.so -s candidates -r /candidates/libbindshell-samba.so -u guest -p guest -P 6699
 
 
-error2: Crypto module not found
+#### error2: Crypto module not found
 
 fix2: sudo python2.7 -m pip install pycrypto
 
 
-error3: pycrypto fail to install
+#### error3: pycrypto fail to install
 
 fix3: sudo python2.7 -m uninstall pycrypto && sudo python2.7 -m install pycryptodome
 
 
-error4: pyasn1 not found
+#### error4: pyasn1 not found
 
 fix4: sudo python2.7 -m pip install pyasn1
 
 
-error5: script run without error but the shell couldn't return any output
+#### error5: script run without error but the shell couldn't return any output
 
 fix5: kill all the process involving the exploit
 
 
-error6: script returns IO error
+#### error6: script returns IO error
 
 fix6: reinstall impacket following fix 1, doing fix 5, delete libbindshell-samba.so in samba share "candidates" as shown below:
 
