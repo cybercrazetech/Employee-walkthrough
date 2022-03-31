@@ -116,8 +116,26 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
                 9336140 blocks of size 1024. 1836012 blocks available
                 
 *content of job-application-form.docx is attached in this repository
-5. smbd 4.5.9 is vulnerable to the sambacry exploit. user "guest" is writable in the samba share "candidates" so it is exploitable
+5. Foothold
 
-*refer to: 
+*smbd 4.5.9 is vulnerable to the sambacry exploit. user "guest" is writable in the samba share "candidates" so it is exploitable
+
+*refer to: https://github.com/opsxcq/exploit-CVE-2017-7494
+
+        $ cd exploit-CVE-2017-7494/
+        $ sudo python2.7 -m pip install -r requirements.txt
+        DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality.
+        Collecting git+git://github.com/opsxcq/impacket.git (from -r requirements.txt (line 2))
+          Cloning git://github.com/opsxcq/impacket.git to /tmp/pip-req-build-5GQWeh
+          Running command git clone -q git://github.com/opsxcq/impacket.git /tmp/pip-req-build-5GQWeh
+          fatal: remote error:
+            The unauthenticated git protocol on port 9418 is no longer supported.
+          Please see https://github.blog/2021-09-01-improving-git-protocol-security-github/ for more information.
+        ERROR: Command errored out with exit status 128: git clone -q git://github.com/opsxcq/impacket.git /tmp/pip-req-build-5GQWeh Check the logs for full command output.
+        
+[error1: directly git cloning impacket module from github fail]
+[fix1: manually install impacket from http://github.com/opsxcq/impacket.git]
+
+
   
 <img src=""/>
