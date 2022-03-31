@@ -98,8 +98,9 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
         Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .                       
         Nmap done: 1 IP address (1 host up) scanned in 50.06 seconds
 3. enumerate the website. found emails ending with @designer.htb. (info@designer.htb, contact@designer.htb, etc) edit /etc/hosts to set designer.htb as the domain name
-4. button "contact us" redirects us to contact.html. reveal creds "guest:guest" for samba share to those interested in job application
-5. Checking Samba Share "candidates" with creds "guest:guest"
+<img src="img/index.png">
+5. button "contact us" redirects us to contact.html. reveal creds "guest:guest" for samba share to those interested in job application
+6. Checking Samba Share "candidates" with creds "guest:guest"
 
         $ smbclient -L designer.htb -U guest
         Enter WORKGROUP\guest's password: guest                                                               
