@@ -227,9 +227,26 @@ running a bash reverse shell to obtain a shell as the user "nobody" in a docker 
 
 http://underdevelopment.designer.htb/development.php?display={some base64 hash}
 
-*reading the html code shows that it posts some base64 hash as the parameter "display" to development.php
+*reading the html code of services.html shows that it posts some base64 hash as the parameter "display" to development.php
+
+        <--snip-->
+            <form action="development.php" method="get">                                                                                                                                                                                           
+                <button name="display" type="submit" value="aWZjb25maWcK">IP</button>                                                                                                                                                              
+                <button name="display" type="submit" value="Y2F0IC9ldGMvaG9zdG5hbWUK">HOSTNAME</button>                                                                                                                                            
+                <button name="display" type="submit" value="ZWNobyBkZXNpZ25lci5odGIK">DOMAIN</button>                                                                                                                                              
+                <button name="display" type="submit" value="d2hvYW1pCg==">WEBADMIN</button>                                                                         
+                <button name="display" type="submit" value="ZWNobyBDeWJlckNyYXplCg==">CREATOR</button>                                                                   
+            </form>
+        <--snip-->
 
 *development.php shows that it decodes the "display" parameter as base64 hash and run as bash
+
+        nobody@b6651f1755a8:/var/www/subdomains/underdevelopment$ cat development.php
+        cat development.php
+        <?php 
+        $output = shell_exec(base64_decode($_GET["display"]));
+        echo "<pre>$output</pre>";
+        ?>
 
 11. Foothold
 
