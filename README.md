@@ -224,7 +224,7 @@ running a bash reverse shell to obtain a shell as the user "nobody" in a docker 
         bash: no job control in this shell
         nobody@b6651f1755a8:/tmp$
         
-7. Discover website source code in /var/www. Reveal a subdomain underdevelopment.designer.htb
+7. Discover backup website source code in docker container's /var/www. Reveal a subdomain underdevelopment.designer.htb
 
         nobody@b6651f1755a8:/tmp$ cd /var/www
         nobody@b6651f1755a8:/var/www$ ls
