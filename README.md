@@ -14,6 +14,11 @@ Passwords:
 | cybercraze | youshallnotcrackthis |
 | guest (samba user)  | guest |
 
+### Hash
+user.txt: c32ba831818880876035e98d868b9b70
+
+root.txt: 4e2ada627f08f9dee6f3acf12adc2511
+
 ### Key Processes
 
 Services: SSH, HTTP, SMB
