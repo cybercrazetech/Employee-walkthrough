@@ -185,10 +185,10 @@ fix5: kill all the process involving the exploit
 
 #### error6: script returns IO error
 
-fix6: reinstall impacket following fix 1, doing fix 5, delete libbindshell-samba.so in samba share "candidates" as shown below:
+fix6: reinstall impacket following fix 1, doing fix 5 and delete libbindshell-samba.so in samba share "candidates" as shown below:
 
         $ smbclient \\\\designer.htb\\candidates -U guest
-        Enter WORKGROUP\guest's password: 
+        Enter WORKGROUP\guest's password: guest
         Try "help" to get a list of possible commands.
         smb: \> ls
           .                                   D        0  Thu Mar 31 17:41:50 2022
