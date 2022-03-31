@@ -55,27 +55,22 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
 3. button "contact us" redirects us to contact.html. reveal creds "guest:guest" for samba share to those interested in job application
 4. Checking Samba Share "candidates"
 
-$ smbclient -L designer.htb -U guest  
-
-Enter WORKGROUP\guest's password: guest                                                               
-                                                                                                 
+        $ smbclient -L designer.htb -U guest
+        Enter WORKGROUP\guest's password: guest                                                               
         Sharename       Type      Comment                                                        
         ---------       ----      -------                                                        
         candidates      Disk      SambaShare for Job Application                                 
         IPC$            IPC       IPC Service (Designer Company)              
         
         
-$ smbclient \\\\designer.htb\\candidates -U guest
-
-Enter WORKGROUP\guest's password: guest
-
-Try "help" to get a list of possible commands.
-
-smb: \> ls
-  .                                   D        0  Thu Mar 31 11:00:04 2022
-  ..                                  D        0  Wed Mar 30 17:15:27 2022
-  job-application-form.docx           A    19975  Sat Mar 26 00:44:53 2022
-  submission                          D        0  Fri Mar 25 21:48:03 2022
+        $ smbclient \\\\designer.htb\\candidates -U guest
+        Enter WORKGROUP\guest's password: guest
+        Try "help" to get a list of possible commands.
+        smb: \> ls
+        .                                   D        0  Thu Mar 31 11:00:04 2022
+        ..                                  D        0  Wed Mar 30 17:15:27 2022
+        job-application-form.docx           A    19975  Sat Mar 26 00:44:53 2022
+        submission                          D        0  Fri Mar 25 21:48:03 2022
 
                 9336140 blocks of size 1024. 1836012 blocks available
                 
