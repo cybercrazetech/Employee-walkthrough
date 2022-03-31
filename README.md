@@ -54,7 +54,9 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
 2. enumerate the website. found emails ending with @designer.htb. (info@designer.htb, contact@designer.htb, etc) edit /etc/hosts to set designer.htb as the domain name
 3. button "contact us" redirects us to contact.html. reveal creds "guest:guest" for samba share to those interested in job application
 4. Checking Samba Share "candidates"
-$ smbclient -L designer.htb -U guest                                                           
+
+$ smbclient -L designer.htb -U guest  
+
 Enter WORKGROUP\guest's password: guest                                                               
                                                                                                  
         Sharename       Type      Comment                                                        
@@ -62,9 +64,13 @@ Enter WORKGROUP\guest's password: guest
         candidates      Disk      SambaShare for Job Application                                 
         IPC$            IPC       IPC Service (Designer Company)              
         
+        
 $ smbclient \\\\designer.htb\\candidates -U guest
+
 Enter WORKGROUP\guest's password: guest
+
 Try "help" to get a list of possible commands.
+
 smb: \> ls
   .                                   D        0  Thu Mar 31 11:00:04 2022
   ..                                  D        0  Wed Mar 30 17:15:27 2022
