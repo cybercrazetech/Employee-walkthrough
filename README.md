@@ -50,7 +50,7 @@ SMB version: 4.5.9 --> vulnerable to CVE-2017-7494
 5. the samba share is only accessible via the creds "guest:guest"
 6. all the exploit scripts used and fixes are included in this zip file:
 
-https://drive.google.com/file/d/1b0Pbc8xdLGaVjGe8nNJqP2MityPsKfJD/view?usp=sharing
+https://drive.google.com/file/d/13d7-Y9Gmh6t5DtLslx7diJRVV_AV4hUw/view?usp=sharing
 
 for any errors resulted for using the exploits, refer to the Writeup section to fix
 
