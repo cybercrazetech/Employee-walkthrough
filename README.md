@@ -106,7 +106,7 @@ for any errors resulted for using the exploits, refer to the Writeup section to 
 <img src="img/index.png">
 3. enumerate the website. found emails ending with @designer.htb. (info@designer.htb, contact@designer.htb, etc) edit /etc/hosts to set designer.htb as the domain name
 <img src="img/email.png">
-4. button "contact us" redirects us to contact.html. reveal creds "guest:guest" for samba share to those interested in job application
+4. button "contact us" redirects us to contact.html. This page reveals the creds "guest:guest" for samba share to those interested in job application
 <img src="img/contact.png">
 5. Checking Samba Share "candidates" with creds "guest:guest"
 
